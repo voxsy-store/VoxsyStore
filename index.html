@@ -3,579 +3,429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN - PANEL WEBSITE</title>
+<title>IPUNGG SHOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
-body{background:#070312;color:white;padding:20px;min-height:100vh}
-.container{max-width:900px;margin:auto}
-.card{background:#120822;border:1px solid rgba(155,48,255,.25);padding:20px;border-radius:20px;margin-bottom:20px}
-h1{margin-bottom:20px;font-size:22px;background:linear-gradient(90deg,#bf5fff,#00f5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-h2{margin-bottom:16px;font-size:17px;color:#bf5fff}
-label{display:block;font-size:12px;color:#8b7aaa;margin-bottom:4px;margin-top:12px;letter-spacing:.05em;text-transform:uppercase}
-input,select{width:100%;padding:12px 14px;border:1px solid #2d1a4b;border-radius:10px;background:#0b0515;color:white;outline:none;font-size:14px;transition:border .2s}
-input:focus,select:focus{border-color:#9b30ff}
-input:disabled{opacity:.5;cursor:not-allowed}
-button.btn{padding:12px 20px;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;transition:all .2s;margin-top:8px}
-.btn-primary{background:linear-gradient(135deg,#9b30ff,#00e5ff);color:white;width:100%}
-.btn-primary:hover{opacity:.9}
-.btn-primary:disabled{opacity:.4;cursor:not-allowed}
-.btn-danger{background:#3d0a1a;border:1px solid #8b1a3a;color:#ff6b9d;padding:6px 12px;font-size:12px;margin:0;border-radius:8px;cursor:pointer}
-.btn-edit{background:#1a2a3d;border:1px solid #1a4a6b;color:#00f5ff;padding:6px 12px;font-size:12px;margin:0;border-radius:8px;cursor:pointer}
-.btn-logout{background:#1a0515;border:1px solid #4b1a2d;color:#ff6b9d;width:100%}
+:root{
+  --bg:#05020f;--card:#0d0820;--card2:#110b28;
+  --border:rgba(155,48,255,0.25);--purple:#9b30ff;
+  --neon:#00f5ff;--gold:#ffd700;--text:#e8e0ff;--muted:#7a6a9a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
 
-/* LOGIN */
-.login-logo{text-align:center;margin-bottom:24px}
-.login-logo .icon{font-size:48px;display:block;margin-bottom:8px}
-.login-logo h1{font-size:24px;margin:0}
-.login-attempts{font-size:12px;color:#8b7aaa;text-align:center;margin-top:8px}
-.lockout-timer{text-align:center;padding:16px;background:rgba(255,50,80,.1);border:1px solid rgba(255,50,80,.3);border-radius:12px;color:#ff6b9d;font-weight:700;margin-bottom:12px;display:none}
-.pw-wrap{position:relative}
-.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#8b7aaa;cursor:pointer;font-size:16px;padding:0;margin:0;width:auto}
+/* ── WELCOME ── */
+#ws{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+#ws.out{opacity:0;transform:scale(1.04)}
+.wsglow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.wsglow::before{content:'';position:absolute;top:50%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(155,48,255,.35) 0%,transparent 65%);animation:pg 2.5s ease-in-out infinite}
+.wsglow::after{content:'';position:absolute;top:25%;left:65%;width:260px;height:260px;background:radial-gradient(circle,rgba(0,245,255,.15) 0%,transparent 65%);animation:pg 3s ease-in-out infinite reverse}
+@keyframes pg{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.18);opacity:1}}
+.wshand{font-size:62px;animation:wave .9s ease-in-out infinite;transform-origin:70% 80%;filter:drop-shadow(0 0 18px rgba(255,215,0,.5));position:relative;z-index:1}
+@keyframes wave{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(18deg)}}
+.wstitle{font-family:'Orbitron',sans-serif;font-size:clamp(20px,6.5vw,34px);font-weight:900;text-align:center;line-height:1.3;position:relative;z-index:1;background:linear-gradient(135deg,#fff 0%,var(--neon) 45%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:su .7s ease both}
+.wssub{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);position:relative;z-index:1;animation:su .7s .15s ease both}
+.wsbar{width:190px;height:3px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;position:relative;z-index:1;margin-top:8px;animation:su .7s .25s ease both}
+.wsbar-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--neon));box-shadow:0 0 8px var(--neon);animation:lb 2.3s .4s ease forwards}
+@keyframes lb{to{width:100%}}
+@keyframes su{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
-/* QRIS PREVIEW */
-.qris-preview{margin-top:14px;text-align:center}
-.qris-preview img{max-width:180px;border-radius:14px;border:1px solid #2d1a4b;display:block;margin:0 auto}
+#app{display:none}
 
-.product-card{display:flex;gap:14px;align-items:center;padding:14px;border-radius:14px;background:#0b0515;border:1px solid #24113d;margin-top:12px}
-.product-card img{width:80px;height:80px;object-fit:cover;border-radius:10px;border:1px solid #2d1a4b;flex-shrink:0}
-.no-img{width:80px;height:80px;background:#1a0533;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0}
-.product-info{flex:1;min-width:0}
-.product-info h3{font-size:15px;margin-bottom:4px}
-.product-info p{font-size:13px;color:#8b7aaa;margin-bottom:4px}
-.price{color:#bf5fff!important;font-weight:700;font-family:monospace}
-.pin-badge{display:inline-block;padding:3px 10px;border-radius:20px;background:#ffb300;color:black;font-size:11px;font-weight:bold}
-.card-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.category-item{padding:10px 14px;border-radius:10px;background:#0b0515;border:1px solid #24113d;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.preview-banner{margin-top:14px;overflow:hidden;border-radius:14px;border:1px solid #2d1a4b}
-.preview-banner img,.preview-banner video{width:100%;max-height:250px;object-fit:cover;display:block}
+/* ── NAVBAR ── */
+.navbar{height:62px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;position:sticky;top:0;z-index:900;background:rgba(5,2,15,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--neon);text-shadow:0 0 12px rgba(0,245,255,.4);display:flex;align-items:center;gap:7px}
+.logo b{color:var(--purple)}
+.hamburger{font-size:20px;background:rgba(0,245,255,.07);border:1px solid rgba(0,245,255,.15);color:var(--neon);border-radius:10px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,#9b30ff,#00f5ff);color:#fff;padding:12px 24px;border-radius:30px;font-weight:700;font-size:14px;z-index:999;transition:transform .3s;pointer-events:none;max-width:90vw;text-align:center}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.status{padding:12px 16px;border-radius:10px;margin-bottom:12px;font-size:14px;font-weight:600;display:none}
-.status.ok{background:rgba(0,255,100,.1);border:1px solid rgba(0,255,100,.3);color:#00ff64;display:block}
-.status.err{background:rgba(255,50,80,.1);border:1px solid rgba(255,50,80,.3);color:#ff6b9d;display:block}
-.status.info{background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.3);color:#00e5ff;display:block}
-.db-bar{padding:10px 16px;border-radius:10px;margin-bottom:16px;font-size:13px;font-weight:700;text-align:center}
-.db-bar.wait{background:rgba(255,180,0,.1);border:1px solid rgba(255,180,0,.3);color:#ffb300}
-.db-bar.ok{background:rgba(0,255,100,.1);border:1px solid rgba(0,255,100,.3);color:#00ff64}
-.db-bar.err{background:rgba(255,50,80,.1);border:1px solid rgba(255,50,80,.3);color:#ff6b9d}
-#adminPanel{display:none}
+/* ── SIDE MENU ── */
+.sideov{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.3s;z-index:2000}
+.sideov.open{opacity:1;pointer-events:auto}
+.sidemenu{position:fixed;right:-280px;top:0;width:260px;height:100vh;background:#09041e;border-left:1px solid var(--border);padding:24px 16px;transition:.35s cubic-bezier(.4,0,.2,1);z-index:3000;display:flex;flex-direction:column;gap:8px}
+.sidemenu.open{right:0}
+.sidehead{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--neon);margin-bottom:12px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sidelink{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-size:13px;font-weight:600}
 
-/* SECTION DIVIDER */
-.sect-divider{border:none;border-top:1px solid rgba(155,48,255,.15);margin:20px 0}
-.sect-title{font-size:13px;font-weight:700;color:#bf5fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;margin-top:4px}
+/* ── BANNER ── */
+.banwrap{padding:12px 12px 0}
+.banwrap img,.banwrap video{width:100%;border-radius:18px;max-height:165px;object-fit:cover;display:block;border:1px solid var(--border)}
+
+/* ── LABEL ── */
+.seclabel{padding:16px 14px 8px;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+
+/* ── CATEGORIES ── */
+.cats{display:flex;gap:8px;overflow-x:auto;padding:0 12px 4px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{padding:8px 18px;border-radius:99px;flex-shrink:0;background:var(--card);border:1px solid var(--border);white-space:nowrap;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:color .2s,border-color .2s,background .2s}
+.cat.on{background:rgba(155,48,255,.18);border-color:var(--purple);color:#fff}
+.cat:not(.on):hover{border-color:rgba(155,48,255,.5);color:var(--text)}
+
+/* ── PRODUCT GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0 12px 100px}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.pcard:active{transform:scale(.96);box-shadow:0 0 18px rgba(155,48,255,.25)}
+.pthumb{position:relative;width:100%;aspect-ratio:4/3;background:#08051a;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pthumb img{width:100%;height:100%;object-fit:contain;padding:6px;display:block;transition:transform .35s}
+.pcard:hover .pthumb img{transform:scale(1.06)}
+.pinb{position:absolute;top:6px;left:6px;background:linear-gradient(135deg,var(--gold),#e67e00);color:#000;font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px}
+.pbody{padding:8px 10px 10px;display:flex;flex-direction:column;flex:1}
+.pname{font-size:12px;font-weight:700;color:#fff;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.35;min-height:2.7em}
+.pprice{font-size:13px;font-weight:800;color:var(--neon);margin-bottom:7px;margin-top:auto}
+.pdiv{height:1px;background:var(--border);margin-bottom:7px}
+.pbtn{width:100%;padding:8px;border:none;border-radius:9px;background:linear-gradient(135deg,var(--purple),#5200cc);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px}
+.empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);font-size:14px}
+.empty span{font-size:38px;display:block;margin-bottom:10px}
+
+/* ── MODALS (CENTER) ── */
+.mover{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:8000;padding:20px}
+.mover.on{display:flex}
+.msheet{background:#0d0820;border-radius:20px;padding:20px 18px 24px;width:100%;max-width:420px;border:1px solid var(--border);animation:sup .28s cubic-bezier(.4,0,.2,1);position:relative;max-height:90vh;overflow-y:auto}
+@keyframes sup{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.mclose{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;border:none;background:rgba(255,255,255,.08);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mtitle{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--neon);margin-bottom:12px}
+.ordrow{display:flex;gap:10px;align-items:center;background:var(--card2);border-radius:12px;padding:10px;margin-bottom:12px;border:1px solid var(--border)}
+.ordrow img{width:48px;height:48px;object-fit:contain;border-radius:8px;background:#07041a;padding:3px}
+.ordname{font-weight:700;font-size:13px;color:#fff}
+.ordprice{font-weight:800;font-size:14px;color:var(--neon);margin-top:2px}
+.flabel{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:10px 0 5px}
+.inp{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card2);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.inp:focus{border-color:var(--purple)}
+.inp::placeholder{color:var(--muted)}
+
+/* ── PAYMENT METHOD ── */
+.pmethods{display:flex;gap:8px;margin-top:2px}
+.pmbtn{flex:1;padding:9px 4px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.pmbtn.on{background:rgba(155,48,255,.2);border-color:var(--purple);color:#fff}
+
+/* ── PAY CONTENT ── */
+.qimg{width:180px;display:block;margin:10px auto 8px;border-radius:12px;border:1px solid var(--border)}
+.dlbtn{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border-radius:12px;border:1px solid var(--border);color:var(--text);text-decoration:none;font-size:13px;font-weight:600;margin-bottom:10px;background:rgba(255,255,255,.03)}
+.pay-info-box{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px;margin:8px 0;text-align:center}
+.pay-info-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.pay-info-number{font-size:20px;font-weight:800;color:var(--neon);letter-spacing:1px}
+
+/* ── UPLOAD ── */
+.uplabel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:16px;border-radius:14px;border:2px dashed var(--border);cursor:pointer;color:var(--muted);font-size:13px;font-weight:600;background:var(--card2);margin-top:5px;transition:border-color .2s,background .2s}
+.uplabel:active{border-color:var(--purple);background:rgba(155,48,255,.08)}
+.uico{font-size:24px}
+#proof{display:none}
+#fname{font-size:11px;color:var(--neon);margin-top:3px}
+.mbtn{width:100%;margin-top:12px;padding:12px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--purple),var(--neon));color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.3px}
+
+.copy{text-align:center;padding:28px 10px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--muted);letter-spacing:1px}
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#180d32;border:1px solid var(--border);color:#fff;padding:11px 20px;border-radius:99px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9500;white-space:nowrap;pointer-events:none}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- LOGIN -->
-  <div class="card" id="loginBox">
-    <div class="login-logo">
-      <span class="icon">🛒</span>
-      <h1>IPUNGG SHOP</h1>
-      <div style="font-size:13px;color:#8b7aaa;margin-top:4px">Admin Panel</div>
-    </div>
-    <div class="lockout-timer" id="lockoutTimer"></div>
-    <div class="status" id="loginStatus"></div>
-    <label>Email</label>
-    <input type="email" id="loginEmail" placeholder="admin@email.com" onkeydown="if(event.key==='Enter')loginAdmin()">
-    <label>Password</label>
-    <div class="pw-wrap">
-      <input type="password" id="loginPassword" placeholder="Password..." onkeydown="if(event.key==='Enter')loginAdmin()">
-      <button class="pw-toggle" type="button" onclick="togglePw()" id="pwToggle">👁️</button>
-    </div>
-    <div class="login-attempts" id="attemptInfo"></div>
-    <button class="btn btn-primary" id="loginBtn" onclick="loginAdmin()" style="margin-top:16px">🔐 LOGIN</button>
-    <div style="text-align:center;margin-top:10px">
-      <button onclick="resetLockout()" style="background:none;border:none;color:#8b7aaa;font-size:11px;cursor:pointer;text-decoration:underline">Reset jika kena lockout</button>
+<!-- WELCOME -->
+<div id="ws">
+  <div class="wsglow"></div>
+  <div class="wshand">👋</div>
+  <div class="wstitle">Welcome to<br>IPUNGG SHOP</div>
+  <div class="wssub">Official Store</div>
+  <div class="wsbar"><div class="wsbar-fill"></div></div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <nav class="navbar">
+    <div class="logo">🛒 IPUNGG<b>SHOP</b></div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="sideov" id="sideOv" onclick="toggleMenu()"></div>
+  <div class="sidemenu" id="sideMenu">
+    <div class="sidehead">🛍️ IPUNGG SHOP</div>
+    <a class="sidelink" id="wa" target="_blank">💬 WhatsApp Admin</a>
+    <a class="sidelink" id="group" target="_blank">👥 Group Bot Community</a>
+    <a class="sidelink" id="channel" target="_blank">📢 Channel Official Ipungg</a>
+  </div>
+
+  <!-- BANNER — dibuat sekali, tidak di-re-render saat ganti kategori -->
+  <div class="banwrap" id="banner"></div>
+
+  <!-- MUSIK AUTOPLAY -->
+  <audio id="bgMusic" loop></audio>
+
+  <div class="seclabel">KATEGORI</div>
+  <div class="cats" id="cats"></div>
+
+  <div class="seclabel">PRODUK</div>
+  <div class="pgrid" id="products"></div>
+
+  <div class="copy">© IPUNGG X MEZUKI</div>
+
+  <!-- ORDER MODAL -->
+  <div class="mover" id="orderModal">
+    <div class="msheet">
+      <button class="mclose" onclick="closeAll()">✕</button>
+      <div class="mtitle">🛒 BUAT ORDER</div>
+      <div class="ordrow">
+        <img id="oImg" src="">
+        <div>
+          <div class="ordname" id="oName">–</div>
+          <div class="ordprice" id="oPrice">–</div>
+        </div>
+      </div>
+      <div class="flabel">Nama Kamu</div>
+      <input class="inp" id="buyerName" placeholder="Masukkan nama lengkap...">
+      <div class="flabel">Metode Pembayaran</div>
+      <div class="pmethods">
+        <button type="button" class="pmbtn on" onclick="selPay('qris',this)">💳 QRIS</button>
+        <button type="button" class="pmbtn" onclick="selPay('dana',this)">💵 Dana</button>
+        <button type="button" class="pmbtn" onclick="selPay('gopay',this)">💰 GoPay</button>
+      </div>
+      <button class="mbtn" onclick="nextPay()">Lanjut ke Pembayaran →</button>
     </div>
   </div>
 
-  <!-- ADMIN PANEL -->
-  <div id="adminPanel">
-    <div class="db-bar wait" id="dbBar">⏳ Menghubungkan ke database...</div>
-
-    <!-- SETTINGS -->
-    <div class="card">
-      <h1>⚙️ IPUNGG SHOP — ADMIN</h1>
-      <div class="status" id="settingsStatus"></div>
-
-      <div class="sect-title">🏪 INFO STORE</div>
-      <label>Nama Store</label>
-      <input type="text" id="storeName" placeholder="IPUNGG SHOP">
-      <label>Nomor WA Admin</label>
-      <input type="text" id="urlAdmin" placeholder="6285198959920">
-      <label>URL Channel WhatsApp</label>
-      <input type="text" id="urlChannel" placeholder="https://whatsapp.com/channel/...">
-      <label>URL Grup WhatsApp</label>
-      <input type="text" id="urlGroup" placeholder="https://chat.whatsapp.com/...">
-
-      <hr class="sect-divider">
-      <div class="sect-title">🖼️ BANNER</div>
-      <label>URL Banner (gambar JPG/PNG atau video MP4)</label>
-      <input type="text" id="bannerUrl" placeholder="https://...">
-      <div class="preview-banner" id="bannerPreview"></div>
-
-      <hr class="sect-divider">
-      <div class="sect-title">🎵 MUSIK WEB</div>
-      <label>URL Musik (link MP3/OGG langsung)</label>
-      <input type="text" id="musicUrl" placeholder="https://...musik.mp3">
-
-      <hr class="sect-divider">
-      <div class="sect-title">💳 QRIS PEMBAYARAN</div>
-      <label>URL Gambar QRIS</label>
-      <input type="text" id="qrisUrl" placeholder="https://...qris.jpg">
-      <div class="qris-preview" id="qrisPreview"></div>
-
-      <hr class="sect-divider">
-      <div class="sect-title">💙 DANA</div>
-      <label>Nomor DANA</label>
-      <input type="text" id="noDana" placeholder="08xxxxxxxxxx">
-
-      <hr class="sect-divider">
-      <div class="sect-title">💚 GOPAY</div>
-      <label>Nomor GoPay</label>
-      <input type="text" id="noGopay" placeholder="08xxxxxxxxxx">
-
-      <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:20px">💾 SIMPAN SEMUA SETTINGS</button>
-    </div>
-
-    <!-- KATEGORI -->
-    <div class="card">
-      <h2>📂 KELOLA KATEGORI</h2>
-      <div class="status" id="catStatus"></div>
-      <label>Nama Kategori Baru</label>
-      <input type="text" id="categoryName" placeholder="Contoh: Diamond, Voucher, Item..." onkeydown="if(event.key==='Enter')addCategory()">
-      <button class="btn btn-primary" onclick="addCategory()">✦ TAMBAH KATEGORI</button>
-      <div id="categoryList" style="margin-top:16px">
-        <div style="color:#8b7aaa;font-size:13px">Menunggu koneksi...</div>
-      </div>
-    </div>
-
-    <!-- PRODUK -->
-    <div class="card">
-      <h2>📦 KELOLA PRODUK</h2>
-      <div class="status" id="prodStatus"></div>
-      <label>Nama Produk</label>
-      <input type="text" id="productName" placeholder="Nama produk...">
-      <label>Harga (Rp)</label>
-      <input type="number" id="productPrice" placeholder="50000">
-      <label>URL Thumbnail (link gambar)</label>
-      <input type="text" id="productThumbnail" placeholder="https://...jpg (boleh kosong)">
-      <label>Kategori</label>
-      <select id="productCategory">
-        <option value="">-- Pilih Kategori --</option>
-      </select>
-      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;margin-bottom:4px">
-        <input type="checkbox" id="productPin" style="width:auto;transform:scale(1.3)">
-        <label for="productPin" style="margin:0;text-transform:none;font-size:14px;color:white;cursor:pointer">📌 Pin Produk (tampil paling atas)</label>
-      </div>
-      <button class="btn btn-primary" onclick="addProduct()">✦ TAMBAH PRODUK</button>
-      <div id="productList" style="margin-top:16px">
-        <div style="color:#8b7aaa;font-size:13px">Menunggu koneksi...</div>
-      </div>
-    </div>
-
-    <div class="card" style="padding:16px">
-      <button class="btn btn-logout btn" onclick="logoutAdmin()">🚪 LOGOUT</button>
+  <!-- PAY MODAL -->
+  <div class="mover" id="payModal">
+    <div class="msheet">
+      <button class="mclose" onclick="closeAll()">✕</button>
+      <div class="mtitle">💳 PEMBAYARAN</div>
+      <div id="payContent"></div>
+      <div class="flabel">Upload Bukti Transfer</div>
+      <label class="uplabel" for="proof">
+        <span class="uico">📎</span>
+        <span>Tap untuk pilih foto bukti</span>
+        <span id="fname"></span>
+      </label>
+      <input type="file" id="proof" accept="image/*" onchange="setFname(this)">
+      <button class="mbtn" onclick="send()">📨 Kirim ke Admin</button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="toast"></div>
 
+<!-- WELCOME + UI SCRIPT -->
 <script>
-// ===== LOGIN HARDENING =====
-const MAX_ATTEMPTS = 5;
-const LOCKOUT_MS   = 5 * 60 * 1000; // 5 menit
-const STORE_KEY    = 'ipungg_login_data';
-
-function getLoginData(){
-  try{ return JSON.parse(localStorage.getItem(STORE_KEY))||{attempts:0,lockedUntil:0}; }
-  catch(e){ return {attempts:0,lockedUntil:0}; }
-}
-function saveLoginData(d){ localStorage.setItem(STORE_KEY, JSON.stringify(d)); }
-
-function getRemainingLockout(){
-  const d=getLoginData();
-  const rem=d.lockedUntil - Date.now();
-  return rem>0 ? rem : 0;
-}
-
-let lockoutInterval=null;
-function startLockoutTimer(){
-  const timer=document.getElementById('lockoutTimer');
-  const btn=document.getElementById('loginBtn');
-  const email=document.getElementById('loginEmail');
-  const pass=document.getElementById('loginPassword');
-
-  clearInterval(lockoutInterval);
-  lockoutInterval=setInterval(()=>{
-    const rem=getRemainingLockout();
-    if(rem<=0){
-      clearInterval(lockoutInterval);
-      timer.style.display='none';
-      btn.disabled=false;
-      email.disabled=false;
-      pass.disabled=false;
-      document.getElementById('attemptInfo').textContent='';
-      updateAttemptInfo();
-    } else {
-      const m=Math.floor(rem/60000);
-      const s=Math.floor((rem%60000)/1000);
-      timer.style.display='block';
-      timer.textContent=`🔒 Terlalu banyak percobaan gagal. Coba lagi dalam ${m}:${String(s).padStart(2,'0')}`;
-      btn.disabled=true;
-      email.disabled=true;
-      pass.disabled=true;
-    }
-  },500);
-}
-
-function updateAttemptInfo(){
-  const d=getLoginData();
-  const info=document.getElementById('attemptInfo');
-  const remaining=MAX_ATTEMPTS - d.attempts;
-  if(d.attempts>0 && remaining>0){
-    info.textContent=`⚠️ ${d.attempts} percobaan gagal — ${remaining} kesempatan tersisa`;
-  } else {
-    info.textContent='';
-  }
-}
-
-window.resetLockout=function(){
-  saveLoginData({attempts:0,lockedUntil:0});
-  clearInterval(lockoutInterval);
-  document.getElementById('lockoutTimer').style.display='none';
-  document.getElementById('loginBtn').disabled=false;
-  document.getElementById('loginEmail').disabled=false;
-  document.getElementById('loginPassword').disabled=false;
-  document.getElementById('attemptInfo').textContent='';
-  document.getElementById('loginStatus').className='status';
-  showToast('✅ Lockout direset!');
-};
-  const inp=document.getElementById('loginPassword');
-  const btn=document.getElementById('pwToggle');
-  if(inp.type==='password'){ inp.type='text'; btn.textContent='🙈'; }
-  else { inp.type='password'; btn.textContent='👁️'; }
-};
-
-// cek lockout saat halaman dibuka
-window.addEventListener('DOMContentLoaded',()=>{
-  if(getRemainingLockout()>0) startLockoutTimer();
-  updateAttemptInfo();
-});
-</script>
-
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import{getDatabase,ref,set,remove,onValue,update}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import{getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const firebaseConfig={
-  apiKey:"AIzaSyAlxM8rpOp1E8LSjxOI1Wq0rCGINyZwAGg",
-  authDomain:"voxsystore-393ad.firebaseapp.com",
-  databaseURL:"",
-  projectId:"voxsystore-393ad",
-  storageBucket:"voxsystore-393ad.firebasestorage.app",
-  appId:"1:321930387898:web:722cfe1ce00c79f2fc7d83"
-};
-
-const app=initializeApp(firebaseConfig);
-const db=getDatabase(app);
-const auth=getAuth(app);
-let storeData={settings:{},categories:{},products:{}};
-
-// ===== LOGIN =====
-window.loginAdmin=async function(){
-  const d=getLoginData();
-  if(getRemainingLockout()>0) return;
-
-  const email=document.getElementById('loginEmail').value.trim();
-  const pass=document.getElementById('loginPassword').value;
-  const s=document.getElementById('loginStatus');
-
-  if(!email||!pass){ showS(s,'err','⚠️ Isi email dan password!'); return; }
-
-  // cek format email basic
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showS(s,'err','⚠️ Format email tidak valid!'); return; }
-
-  showS(s,'info','⏳ Memverifikasi...');
-  document.getElementById('loginBtn').disabled=true;
-
-  try{
-    await signInWithEmailAndPassword(auth,email,pass);
-    // reset attempts on success
-    saveLoginData({attempts:0,lockedUntil:0});
-    document.getElementById('attemptInfo').textContent='';
-  } catch(err){
-    document.getElementById('loginBtn').disabled=false;
-
-    // increment attempts
-    const nd=getLoginData();
-    nd.attempts=(nd.attempts||0)+1;
-
-    let msg='❌ Login gagal, coba lagi.';
-    if(err.code==='auth/invalid-credential'||err.code==='auth/wrong-password') msg='❌ Email atau password salah!';
-    else if(err.code==='auth/user-not-found') msg='❌ Akun tidak ditemukan!';
-    else if(err.code==='auth/too-many-requests') msg='❌ Terlalu banyak percobaan. Tunggu beberapa saat.';
-    else if(err.code==='auth/network-request-failed') msg='❌ Gagal koneksi. Cek internet kamu!';
-    else if(err.code==='auth/invalid-email') msg='❌ Format email tidak valid!';
-    else msg=`❌ Error: ${err.code}`;
-
-    if(nd.attempts>=MAX_ATTEMPTS){
-      nd.lockedUntil=Date.now()+LOCKOUT_MS;
-      msg='🔒 Terlalu banyak percobaan gagal! Akses dikunci 5 menit.';
-      startLockoutTimer();
-    }
-
-    saveLoginData(nd);
-    updateAttemptInfo();
-    showS(s,'err',msg);
-
-    // clear password field on failed attempt
-    document.getElementById('loginPassword').value='';
-  }
-};
-
-window.logoutAdmin=async function(){
-  if(confirm('Yakin mau logout?')) await signOut(auth);
-};
-
-onAuthStateChanged(auth,(user)=>{
-  if(user){
-    document.getElementById('loginBox').style.display='none';
-    document.getElementById('adminPanel').style.display='block';
-    loadStore();
-  } else {
-    document.getElementById('loginBox').style.display='block';
-    document.getElementById('adminPanel').style.display='none';
-  }
+// Proteksi
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('selectstart',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if(e.key==='F12'||(e.ctrlKey&&['u','s','a'].includes(e.key.toLowerCase()))||(e.ctrlKey&&e.shiftKey&&['i','j','c'].includes(e.key.toLowerCase())))
+    e.preventDefault();
 });
 
-// ===== LOAD STORE =====
-function loadStore(){
-  const bar=document.getElementById('dbBar');
-  onValue(ref(db,'store'),(snap)=>{
-    bar.className='db-bar ok';
-    bar.textContent='✅ Database terhubung & real-time aktif!';
-    setTimeout(()=>bar.style.display='none',3000);
-    const raw=snap.val()||{};
-    storeData.settings=raw.settings||{};
-    storeData.categories=raw.categories||{};
-    storeData.products=raw.products||{};
-    renderSettings();
-    renderBanner();
-    renderQris();
-    renderCategories();
-    renderProducts();
-  },(err)=>{
-    bar.className='db-bar err';
-    bar.textContent='❌ Database gagal: '+err.message;
-    showToast('❌ '+err.message);
-  });
-}
+// Welcome hide
+setTimeout(function(){
+  var ws=document.getElementById('ws');
+  var app=document.getElementById('app');
+  ws.classList.add('out');
+  app.style.display='block';
+  setTimeout(function(){ws.style.display='none'},650);
+},2600);
 
-// ===== SETTINGS =====
-function renderSettings(){
-  const s=storeData.settings;
-  setVal('storeName',s.storeName||'');
-  setVal('bannerUrl',s.banner||'');
-  setVal('urlAdmin',s.urlAdmin||'');
-  setVal('urlChannel',s.urlChannel||'');
-  setVal('urlGroup',s.urlGroup||'');
-  setVal('musicUrl',s.musicUrl||'');
-  setVal('qrisUrl',s.qrisUrl||'');
-  setVal('noDana',s.noDana||'');
-  setVal('noGopay',s.noGopay||'');
-}
-
-function renderBanner(){
-  const p=document.getElementById('bannerPreview');
-  const b=storeData.settings?.banner||'';
-  if(!b){p.innerHTML='';return;}
-  if(b.match(/\.mp4$/i)){
-    p.innerHTML=`<video autoplay muted loop controls><source src="${b}" type="video/mp4"></video>`;
-  } else {
-    p.innerHTML=`<img src="${b}" onerror="this.parentElement.innerHTML='<p style=color:#ff6b9d;padding:10px>❌ URL gambar tidak valid</p>'">`;
-  }
-}
-
-function renderQris(){
-  const p=document.getElementById('qrisPreview');
-  const q=storeData.settings?.qrisUrl||'';
-  if(!q){p.innerHTML='<div style="color:#8b7aaa;font-size:12px;margin-top:8px">Belum ada gambar QRIS</div>';return;}
-  p.innerHTML=`<img src="${q}" style="max-width:180px;border-radius:14px;border:1px solid #2d1a4b;display:block;margin:10px auto" onerror="this.parentElement.innerHTML='<p style=color:#ff6b9d;padding:10px;text-align:center>❌ URL QRIS tidak valid</p>'">`;
-}
-
-// preview langsung saat input berubah
-document.getElementById('qrisUrl').addEventListener('input',function(){
-  const q=this.value.trim();
-  const p=document.getElementById('qrisPreview');
-  if(!q){p.innerHTML='';return;}
-  p.innerHTML=`<img src="${q}" style="max-width:180px;border-radius:14px;border:1px solid #2d1a4b;display:block;margin:10px auto" onerror="this.parentElement.innerHTML='<p style=color:#ff6b9d;padding:10px;text-align:center>❌ URL tidak valid</p>'">`;
-});
-
-document.getElementById('bannerUrl').addEventListener('input',function(){
-  const b=this.value.trim();
-  const p=document.getElementById('bannerPreview');
-  if(!b){p.innerHTML='';return;}
-  if(b.match(/\.mp4$/i)){
-    p.innerHTML=`<video autoplay muted loop controls><source src="${b}" type="video/mp4"></video>`;
-  } else {
-    p.innerHTML=`<img src="${b}" onerror="this.parentElement.innerHTML='<p style=color:#ff6b9d;padding:10px>❌ URL tidak valid</p>'">`;
-  }
-});
-
-window.saveSettings=async function(){
-  const s=document.getElementById('settingsStatus');
-  showS(s,'info','⏳ Menyimpan...');
-  const data={
-    storeName:getVal('storeName'),
-    banner:getVal('bannerUrl'),
-    urlAdmin:getVal('urlAdmin'),
-    urlChannel:getVal('urlChannel'),
-    urlGroup:getVal('urlGroup'),
-    musicUrl:getVal('musicUrl'),
-    qrisUrl:getVal('qrisUrl'),
-    noDana:getVal('noDana'),
-    noGopay:getVal('noGopay'),
-  };
-  try{
-    await set(ref(db,'store/settings'),data);
-    showS(s,'ok','✅ Settings berhasil disimpan!');
-    showToast('✅ Settings disimpan!');
-    renderBanner();
-    renderQris();
-  } catch(e){
-    showS(s,'err','❌ Gagal: '+e.message+' → Cek Firebase Rules!');
-    showToast('❌ Gagal simpan!');
-  }
+window.toggleMenu=function(){
+  document.getElementById('sideMenu').classList.toggle('open');
+  document.getElementById('sideOv').classList.toggle('open');
 };
-
-// ===== KATEGORI =====
-window.addCategory=async function(){
-  const s=document.getElementById('catStatus');
-  const name=getVal('categoryName').trim();
-  if(!name){showS(s,'err','⚠️ Isi nama kategori!');return;}
-  showS(s,'info','⏳ Menyimpan...');
-  const id=String(Date.now());
-  try{
-    await set(ref(db,'store/categories/'+id),{id,name});
-    setVal('categoryName','');
-    showS(s,'ok',`✅ Kategori "${name}" ditambahkan!`);
-    showToast('✅ Kategori ditambahkan!');
-  } catch(e){
-    showS(s,'err','❌ Gagal: '+e.message);
-    showToast('❌ Gagal tambah kategori!');
-  }
+window.closeAll=function(){
+  document.getElementById('orderModal').classList.remove('on');
+  document.getElementById('payModal').classList.remove('on');
 };
-
-window.deleteCategory=async function(id){
-  if(!confirm('Hapus kategori ini?'))return;
-  try{
-    await remove(ref(db,'store/categories/'+id));
-    showToast('🗑️ Kategori dihapus!');
-  } catch(e){showToast('❌ Gagal hapus: '+e.message);}
+window._payMethod='qris';
+window.selPay=function(m,btn){
+  window._payMethod=m;
+  document.querySelectorAll('.pmbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
 };
-
-function renderCategories(){
-  const wrap=document.getElementById('categoryList');
-  const sel=document.getElementById('productCategory');
-  const cats=Object.values(storeData.categories||{});
-  const cur=sel.value;
-  sel.innerHTML='<option value="">-- Pilih Kategori --</option>';
-  cats.forEach(c=>sel.innerHTML+=`<option value="${c.name}">${c.name}</option>`);
-  sel.value=cur;
-  wrap.innerHTML=cats.length===0
-    ?'<div style="color:#8b7aaa;font-size:13px;padding:10px 0">Belum ada kategori.</div>'
-    :cats.map(c=>`
-      <div class="category-item">
-        <span>📂 ${c.name}</span>
-        <button class="btn-danger" onclick="deleteCategory('${c.id}')">🗑️ Hapus</button>
-      </div>`).join('');
-}
-
-// ===== PRODUK =====
-window.addProduct=async function(){
-  const s=document.getElementById('prodStatus');
-  const name=getVal('productName').trim();
-  const price=getVal('productPrice').trim();
-  const thumbnail=getVal('productThumbnail').trim();
-  const category=getVal('productCategory');
-  const pinned=document.getElementById('productPin').checked;
-  if(!name){showS(s,'err','⚠️ Nama produk wajib diisi!');return;}
-  if(!price){showS(s,'err','⚠️ Harga wajib diisi!');return;}
-  if(!category){showS(s,'err','⚠️ Pilih kategori dulu!');return;}
-  showS(s,'info','⏳ Menyimpan produk...');
-  const id=String(Date.now());
-  const prod={id,name,price:Number(price),thumbnail,category,pinned,createdAt:Number(id)};
-  try{
-    await set(ref(db,'store/products/'+id),prod);
-    setVal('productName','');setVal('productPrice','');
-    setVal('productThumbnail','');setVal('productCategory','');
-    document.getElementById('productPin').checked=false;
-    showS(s,'ok',`✅ Produk "${name}" berhasil ditambahkan!`);
-    showToast('✅ Produk ditambahkan!');
-  } catch(e){
-    showS(s,'err','❌ Gagal: '+e.message);
-    showToast('❌ Gagal tambah produk!');
-  }
-};
-
-window.deleteProduct=async function(id){
-  if(!confirm('Hapus produk ini?'))return;
-  try{
-    await remove(ref(db,'store/products/'+id));
-    showToast('🗑️ Produk dihapus!');
-  } catch(e){showToast('❌ Gagal hapus: '+e.message);}
-};
-
-window.togglePin=async function(id,cur){
-  try{
-    await update(ref(db,'store/products/'+id),{pinned:!cur});
-    showToast(cur?'📌 Produk di-unpin':'📌 Produk di-pin!');
-  } catch(e){showToast('❌ Gagal: '+e.message);}
-};
-
-function renderProducts(){
-  const wrap=document.getElementById('productList');
-  const prods=Object.values(storeData.products||{});
-  if(prods.length===0){
-    wrap.innerHTML='<div style="color:#8b7aaa;font-size:13px;padding:10px 0">Belum ada produk.</div>';
+window.nextPay=function(){
+  var n=document.getElementById('buyerName');
+  if(!n||!n.value.trim()){
+    _showToast('⚠️ Isi nama kamu dulu!');
     return;
   }
-  prods.sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||Number(b.id)-Number(a.id));
-  wrap.innerHTML=prods.map(p=>`
-    <div class="product-card">
-      ${p.thumbnail
-        ?`<img src="${p.thumbnail}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}
-      <div class="no-img" ${p.thumbnail?'style="display:none"':''}>📦</div>
-      <div class="product-info">
-        <h3>${p.name}</h3>
-        <p class="price">Rp ${Number(p.price).toLocaleString('id-ID')}</p>
-        <p>${p.category}</p>
-        ${p.pinned?'<span class="pin-badge">📌 PINNED</span>':''}
-        <div class="card-actions">
-          <button class="btn-edit" onclick="togglePin('${p.id}',${!!p.pinned})">${p.pinned?'📌 Unpin':'📌 Pin'}</button>
-          <button class="btn-danger" onclick="deleteProduct('${p.id}')">🗑️ Hapus</button>
-        </div>
+  var s=window.__stSettings||{};
+  var m=window._payMethod;
+  var pc=document.getElementById('payContent');
+  if(m==='qris'){
+    var q=s.qrisUrl||'https://img2.pixhost.to/images/7838/725233706_elaina-1778564710301.jpg';
+    pc.innerHTML='<img src="'+q+'" class="qimg"><a href="'+q+'" class="dlbtn" target="_blank" download>⬇ Download QRIS</a>';
+  } else if(m==='dana'){
+    var nd=s.noDana||'-';pc.innerHTML='<div class="pay-info-box"><div class="pay-info-label">💵 Nomor Dana</div><div class="pay-info-number">'+nd+'</div></div><button class="dlbtn" style="cursor:pointer;width:100%;border:none;background:none" onclick="_copyNo(this)">📋 Salin Nomor</button>';
+  } else {
+    var ng=s.noGopay||'-';pc.innerHTML='<div class="pay-info-box"><div class="pay-info-label">💰 Nomor GoPay</div><div class="pay-info-number">'+ng+'</div></div><button class="dlbtn" style="cursor:pointer;width:100%;border:none;background:none" onclick="_copyNo(this)">📋 Salin Nomor</button>';
+  }
+  document.getElementById('orderModal').classList.remove('on');
+  document.getElementById('payModal').classList.add('on');
+};
+window.setFname=function(i){
+  var f=document.getElementById('fname');
+  if(f) f.innerText=i.files[0]?i.files[0].name:'';
+};
+window._copyNo=function(btn){var no=btn.previousElementSibling.querySelector('.pay-info-number').innerText;navigator.clipboard.writeText(no).then(function(){_showToast('✅ Nomor disalin!');btn.innerText='✅ Tersalin!';setTimeout(function(){btn.innerText='📋 Salin Nomor';},2000);}).catch(function(){_showToast('❌ Gagal salin');});};window._showToast=function(msg){
+  var t=document.getElementById('toast');
+  t.innerText=msg;t.classList.add('on');
+  setTimeout(function(){t.classList.remove('on')},2800);
+};
+</script>
+
+<!-- ====================================================
+  🔧 FIREBASE CONFIG — GANTI DENGAN MILIK KAMU
+  Cara dapat config:
+  1. Buka console.firebase.google.com
+  2. Pilih project → Project Settings → Your Apps
+  3. Copy firebaseConfig
+  4. Paste di bawah ini (ganti semua value)
+  
+  Untuk IMGBB_KEY:
+  1. Daftar di imgbb.com
+  2. Settings → API → copy API key
+===================================================== -->
+<script>
+const firebaseConfig = {
+  apiKey:            "AIzaSyAlxM8rpOp1E8LSjxOI1Wq0rCGINyZwAGg",
+  authDomain:        "voxsystore-393ad.firebaseapp.com",
+  databaseURL:       "",
+  projectId:         "voxsystore-393ad",
+  storageBucket:     "voxsystore-393ad.firebasestorage.app",
+  appId:             "1:321930387898:web:722cfe1ce00c79f2fc7d83"
+};
+
+// ImgBB API Key — untuk upload bukti transfer
+const IMGBB_KEY = "a8a4d55f889fcadd95552214d55c46b3";
+
+window.__CFG = { firebaseConfig, IMGBB_KEY };
+</script>
+
+<!-- APP LOGIC -->
+<script type="module">
+const u1=['aHR0cHM6Ly93d3cu','Z3N0YXRpYy5jb20v','ZmlyZWJhc2Vqcy8x','MC4xMi4yL2ZpcmVi','YXNlLWFwcC5qcw=='].map(atob).join('');
+const u2=['aHR0cHM6Ly93d3cu','Z3N0YXRpYy5jb20v','ZmlyZWJhc2Vqcy8x','MC4xMi4yL2ZpcmVi','YXNlLWRhdGFiYXNlLmpz'].map(atob).join('');
+const{initializeApp}=await import(u1);
+const{getDatabase,ref,onValue}=await import(u2);
+const fa=initializeApp(window.__CFG.firebaseConfig);
+const db=getDatabase(fa);
+const rp=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',minimumFractionDigits:0}).format(n);
+const g=id=>document.getElementById(id);
+let st={},sel={},ac='all';
+let _bannerSet=false; // flag: banner hanya diset sekali
+let _musicSet=false;  // flag: musik hanya diset sekali
+window.__prods=[];
+
+onValue(ref(db,'store'),snap=>{
+  st=snap.val()||{settings:{},products:{},categories:{}};
+  draw();
+});
+
+function draw(){
+  const s=st.settings||{};
+  window.__stSettings=s;
+
+  // Links
+  g('wa').href='https://wa.me/'+(s.urlAdmin||'');
+  g('group').href=s.urlGroup||'#';
+  g('channel').href=s.urlChannel||'#';
+
+  // Banner — set SEKALI saja, tidak re-render saat ganti kategori
+  if(!_bannerSet){
+    _bannerSet=true;
+    const b=s.banner||'';
+    if(b.includes('.mp4')){
+      g('banner').innerHTML=`<video autoplay muted loop playsinline src="${b}"></video>`;
+    } else if(b){
+      g('banner').innerHTML=`<img src="${b}" onerror="this.style.display='none'">`;
+    }
+  }
+
+  // Musik autoplay — set SEKALI saja
+  if(!_musicSet && s.musicUrl){
+    _musicSet=true;
+    const mus=g('bgMusic');
+    mus.src=s.musicUrl;
+    mus.volume=0.35;
+    // autoplay butuh interaksi user di mobile, coba langsung, fallback ke tap
+    const tryPlay=()=>mus.play().catch(()=>{});
+    tryPlay();
+    document.addEventListener('click',tryPlay,{once:true});
+    document.addEventListener('touchstart',tryPlay,{once:true});
+  }
+
+  // Kategori
+  const cats=Object.values(st.categories||{});
+  g('cats').innerHTML=
+    `<div class="cat ${ac==='all'?'on':''}" onclick="_fc('all')">🏪 Semua</div>`
+    +cats.map(c=>`<div class="cat ${ac===c.name?'on':''}" onclick="_fc('${c.name}')">${c.name}</div>`).join('');
+
+  // Produk
+  const all=Object.values(st.products||{});
+  window.__prods=all;
+
+  let grid;
+  if(ac==='all'){
+    // Semua = hanya yang di-pin
+    grid=all.filter(x=>x.pinned);
+  } else {
+    const catAll=all.filter(x=>x.category===ac);
+    grid=[...catAll.filter(x=>x.pinned),...catAll.filter(x=>!x.pinned)];
+  }
+
+  if(!grid.length){
+    g('products').innerHTML=`<div class="empty"><span>📦</span>Belum ada produk</div>`;
+    return;
+  }
+  g('products').innerHTML=grid.map(x=>{
+    const idx=all.indexOf(x);
+    return `<div class="pcard">
+      <div class="pthumb">
+        <img src="${x.thumbnail||''}" onerror="this.src=''">
+        ${x.pinned?'<div class="pinb">⭐ PIN</div>':''}
       </div>
-    </div>`).join('');
+      <div class="pbody">
+        <div class="pname">${x.name||'Produk'}</div>
+        <div class="pprice">${rp(x.price||0)}</div>
+        <div class="pdiv"></div>
+        <button class="pbtn" onclick="_od(${idx})">🛒 Order Sekarang</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-// ===== UTILS =====
-function getVal(id){return document.getElementById(id)?.value||'';}
-function setVal(id,v){const el=document.getElementById(id);if(el)el.value=v;}
-function showS(el,type,msg){
-  el.className='status '+type;el.textContent=msg;
-  if(type==='ok')setTimeout(()=>el.className='status',4000);
-}
-window.showToast=function(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+window._fc=c=>{ac=c;draw()};
+
+window._od=idx=>{
+  const x=window.__prods[idx];
+  if(!x)return;
+  sel=x;
+  g('oImg').src=x.thumbnail||'';
+  g('oName').innerText=x.name||'';
+  g('oPrice').innerText=rp(x.price||0);
+  g('orderModal').classList.add('on');
+};
+
+window.send=async()=>{
+  const file=g('proof').files[0];
+  if(!file){_showToast('⚠️ Pilih bukti transfer dulu!');return}
+  _showToast('⏳ Mengupload...');
+  try{
+    const fd=new FormData();fd.append('image',file);
+    const ep=[atob('aHR0cHM6Ly9hcGku'),atob('aW1nYmIuY29tLzEv'),atob('dXBsb2Fk')].join('');
+    const res=await fetch(`${ep}?key=${window.__CFG.IMGBB_KEY}`,{method:'POST',body:fd});
+    const j=await res.json();
+    if(!j?.data?.url){_showToast('❌ Upload gagal, coba lagi');return}
+    const nm=g('buyerName').value||'-';
+    const m=window._payMethod||'qris';
+    const ml=m==='qris'?'QRIS':m==='dana'?'Dana':'GoPay';
+    const msg=encodeURIComponent(
+`*📝 FORMAT ORDER PRODUK*
+
+*👤 Nama* : ${nm}
+*🛒 Produk* : ${sel.name}
+*💰 Harga* : ${rp(sel.price)}
+*💳 Metode Bayar* : ${ml}
+*📸 Bukti pembayaran*
+${j.data.url}
+
+💌 Mohon diproses ya admin 😘`);
+    window.open('https://wa.me/'+(st.settings?.urlAdmin||'')+'?text='+msg);
+    closeAll();
+    _showToast('✅ Order terkirim!');
+  }catch(e){_showToast('❌ '+e.message)}
 };
 </script>
 </body>
